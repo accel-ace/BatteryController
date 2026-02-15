@@ -1,7 +1,6 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #include "BatteryCollectorCharacter.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -52,7 +51,7 @@ ABatteryCollectorCharacter::ABatteryCollectorCharacter()
 	// CollectionSphereの設定
 	CollectionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere"));
 	// CollectionSphereをルートの子に設定
-	CollectionSphere->AttachTo(RootComponent);
+	CollectionSphere->SetupAttachment(RootComponent);
 	// Sphereの半径を設定
 	CollectionSphere->SetSphereRadius(200.0f);
 
@@ -114,7 +113,7 @@ void ABatteryCollectorCharacter::CollectPickups()
 		APickup* const TestPickup = Cast<APickup>(CollectedActors[isCollected]);
 
 		// キャストが成功し、破棄されておらず、アクティブな時だけ実行
-		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive())
+		if (IsValid(TestPickup) && TestPickup->IsActive())
 		{
 			TestPickup->WasCollected();
 
@@ -157,7 +156,6 @@ void ABatteryCollectorCharacter::UpdateCharacterPower(float PowerChange)
 
 void ABatteryCollectorCharacter::OnResetVR()
 {
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
 void ABatteryCollectorCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

@@ -6,8 +6,10 @@ using System.Collections.Generic;
 public class BatteryCollectorEditorTarget : TargetRules
 {
 	public BatteryCollectorEditorTarget(TargetInfo Target) : base(Target)
-	{
-		Type = TargetType.Editor;
-		ExtraModuleNames.Add("BatteryCollector");
-	}
+    {
+        Type = TargetType.Editor;
+        DefaultBuildSettings = BuildSettingsVersion.V5;
+
+        ExtraModuleNames.Add("BatteryCollector");
+    }
 }

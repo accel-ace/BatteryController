@@ -52,7 +52,7 @@ void ASpawnVolume::SpawnPickup()
 			// スポーンさせるオーナー
 			SpawnParams.Owner = this;
 			// スポーンさせるアイテムオブジェクトの所有者とスポーンさせたオブジェクトの情報
-			SpawnParams.Instigator = Instigator;
+			SpawnParams.Instigator = GetInstigator();
 
 			// どこにスポーンさせるか
 			FVector SpawnLocation = GetRandomPointInVolume();
